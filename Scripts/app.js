@@ -53,12 +53,12 @@
 
                 } // for in
                 
-                var paragraph = document.getElementById("paragraph" + person)
-                firstParagraph.innerHTML = output;
+                var paragraphString = "paragraph" + (person + 1)
+                var paragraph = document.getElementById(paragraphString);
+                paragraph.innerHTML = output;
             } // outer for loop
         } // out if statment
 
-        console.log(addressBook);
 
     });
 
