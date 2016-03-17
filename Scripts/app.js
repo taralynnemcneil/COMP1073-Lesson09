@@ -1,64 +1,65 @@
 // setup your IIFE (Immediately Invoked Function Expression)
-(function() {
+(function () {
 
     "use strict";
-    var output = "";
-    var firstParagraph = document.getElementById("firstParagraph");
+   
+    
 
     // Instantiate new xhr object
     var request = new XMLHttpRequest();
-    request.open('GET', '../person.txt', true);
-    request.addEventListener('readystatechange', function() {
+    request.open('GET', '../people.txt', true);
+    request.addEventListener('readystatechange', function () {
         if (request.readyState === 4) {
+            var people = {};
+            people = JSON.parse(request.responseText);
+            
             // declare array
-            var addressBook=[];
+            var addressBook = [];
             
             // read the data frim person.txt file
-            addressBook = JSON.parse(request.responseText);
-           
-           var addressBookLength = addressBook.length;;
-           for(var person in addressBook) {
-                person.sayHello = function() {
-                output += "<br><hr><br>" + Person.name + " says hello";
-                }
-           }
-           
-           console.log(addressBook);
-            
-            var Person = {}; /* var Person = new Object();   */
-            Person = JSON.parse(request.responseText);
-            
-            Person.sayHello = function() {
-                output += "<br><hr><br>" + Person.name + " says hello";
-            }
+            addressBook = people.addressBook;
 
-            // for every key in the Person object, loop...
-            for (var key in Person) {
+            var addressBookLength = addressBook.length;
 
-                // check if the key is the familyNames array
-                if (key === "familyNames") {
-                    output += "<br>Family Names: <br>";
-                    output += "<hr><br>";
-                    output += "<ul>";
-                    for (var index = 0; index < Person.familyNames.length; index++) {
-                        output += "<li>" + Person.familyNames[index] + "</li>";
-                    } // for loop
-                    output += "</ul>";
-                } // if statement
-                else if (key === "sayHello") {
-                    Person.sayHello();
+            for (var person = 0; person < addressBookLength; person++) {
+                var output = "";
+                
+                addressBook[person].sayHello = function () {
+                    output += "<br><hr><br>" + addressBook[person].name + " says hello";
                 }
                 
-                // for all other cases do the following...
-                else {
+                // for every key in the Person object, loop...
+                for (var key in addressBook[person]) {
 
-                    output += Person[key] + "<br>";
-                } // else statement
+                    // check if the key is the familyNames array
+                    if (key === "familyNames") {
+                        output += "<br>Family Names: <br>";
+                        output += "<hr><br>";
+                        output += "<ul>";
+                        for (var index = 0; index < addressBook[person].familyNames.length; index++) {
+                            output += "<li>" + addressBook[person].familyNames[index] + "</li>";
+                        } // for loop
+                        output += "</ul>";
+                    } // if statement
+                    else if (key === "sayHello") {
+                        addressBook[person].sayHello();
+                    }
+                
+                    // for all other cases do the following...
+                    else {
 
-            } // for in
+                        output += addressBook[person][key] + "<br>";
+                    } // else statement
 
-            firstParagraph.innerHTML = output;
-        }
+                } // for in
+                
+                var paragraph = document.getElementById("paragraph" + person)
+                firstParagraph.innerHTML = output;
+            } // outer for loop
+        } // out if statment
+
+        console.log(addressBook);
+
     });
 
     request.send();
