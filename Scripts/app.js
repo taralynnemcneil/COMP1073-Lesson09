@@ -10,8 +10,12 @@
     request.open('GET', '../person.txt', true);
     request.addEventListener('readystatechange', function() {
         if (request.readyState === 4) {
+            var addressBook=[];
+            addressBook = JSON.parse(request.responseText);
+           
+           console.log(addressBook);
+            
             var Person = {}; /* var Person = new Object();   */
-
             Person = JSON.parse(request.responseText);
             
             Person.sayHello = function() {
