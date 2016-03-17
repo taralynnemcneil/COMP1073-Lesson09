@@ -10,8 +10,18 @@
     request.open('GET', '../person.txt', true);
     request.addEventListener('readystatechange', function() {
         if (request.readyState === 4) {
+            // declare array
             var addressBook=[];
+            
+            // read the data frim person.txt file
             addressBook = JSON.parse(request.responseText);
+           
+           var addressBookLength = addressBook.length;;
+           for(var person in addressBook) {
+                person.sayHello = function() {
+                output += "<br><hr><br>" + Person.name + " says hello";
+                }
+           }
            
            console.log(addressBook);
             
