@@ -26,5 +26,19 @@
     "Bob",
     "Jarret"
     ]
+    },
+     {
+    "age": 25,
+    "name": "John",
+    "address": "20 Georgian Drive",
+    "city": "Barrie",
+    "province": "Ontario",
+    "familyNames": [
+    "Mary",
+    "Margot",
+    "Mallory",
+    "Michelle",
+    "Marianne"
+    ]
     }
 ]}
